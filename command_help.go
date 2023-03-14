@@ -9,7 +9,7 @@ func commandHelp(config *Config) error {
 	fmt.Println()
 
 	for _, command := range getCommands() {
-		fmt.Printf("%s: %s\n", command.name, command.description)
+		fmt.Printf("%-5s: %s\n", command.name, command.description)
 	}
 
 	fmt.Println()
