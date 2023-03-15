@@ -1,6 +1,6 @@
 package main
 
 type Config struct {
-	Next     string
+	Next     *string
 	Previous *string
 }

@@ -18,7 +18,7 @@ type cliCommand struct {
 func startPokedex() {
 	scanner := bufio.NewScanner(os.Stdin)
 	config := Config{
-		Next:     "https://pokeapi.co/api/v2/location-area/",
+		Next:     nil,
 		Previous: nil,
 	}
 

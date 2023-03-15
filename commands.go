@@ -4,18 +4,24 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/AkifhanIlgaz/pokedex/internal/pokeapi"
 	"github.com/fatih/color"
 )
 
 func commandMap(config *Config) error {
-	poke := getLocations(config.Next)
-	config.Next = poke.Next
-	config.Previous = poke.Previous
+	locationResp, err := pokeapi.GetLocations(config.Next)
+	if err != nil {
+		return err
+	}
 
-	for _, location := range poke.Results {
+	config.Next = locationResp.Next
+	config.Previous = locationResp.Previous
+
+	for _, location := range locationResp.Results {
 		c := color.Set(color.FgHiBlue, color.Bold)
 		c.Println(location.LocationName)
 	}
+
 	return nil
 }
 
@@ -25,11 +31,15 @@ func commandMapb(config *Config) error {
 		return nil
 	}
 
-	poke := getLocations(*config.Previous)
-	config.Next = *config.Previous
-	config.Previous = poke.Previous
+	locationResp, err := pokeapi.GetLocations(config.Previous)
+	if err != nil {
+		return err
+	}
 
-	for _, location := range poke.Results {
+	config.Next = locationResp.Next
+	config.Previous = locationResp.Previous
+
+	for _, location := range locationResp.Results {
 		c := color.Set(color.FgHiBlue, color.Bold)
 		c.Println(location.LocationName)
 	}
