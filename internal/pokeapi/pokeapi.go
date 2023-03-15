@@ -1,3 +1,3 @@
 package pokeapi
 
-const baseURL string = "https://pokeapi.co/api/v2"
+const BaseURL string = "https://pokeapi.co/api/v2"

@@ -7,8 +7,8 @@ import (
 	"github.com/fatih/color"
 )
 
-func commandMap(config *Config) error {
-	locationResp, err := config.Client.GetLocations(config.Next)
+func commandMap(config *Config, args ...string) error {
+	locationResp, err := config.Client.ListLocations(config.Next)
 	if err != nil {
 		return err
 	}
@@ -24,13 +24,13 @@ func commandMap(config *Config) error {
 	return nil
 }
 
-func commandMapb(config *Config) error {
+func commandMapb(config *Config, args ...string) error {
 	if config.Previous == nil {
 		color.Red("Error: No previous page")
 		return nil
 	}
 
-	locationResp, err := config.Client.GetLocations(config.Previous)
+	locationResp, err := config.Client.ListLocations(config.Previous)
 	if err != nil {
 		return err
 	}
@@ -46,7 +46,22 @@ func commandMapb(config *Config) error {
 	return nil
 }
 
-func commandHelp(config *Config) error {
+func commandExplore(config *Config, args ...string) error {
+	color.Magenta("Exploring %s...", args[0])
+
+	locationResp, err := config.Client.GetLocations(args[0])
+	if err != nil {
+		return err
+	}
+	for _, pokemon := range locationResp.PokemonEncounters {
+		c := color.Set(color.FgHiBlue, color.Bold)
+		c.Println(pokemon.Pokemon.Name)
+	}
+
+	return nil
+}
+
+func commandHelp(config *Config, args ...string) error {
 	fmt.Println()
 	color.HiMagenta("Welcome to Pokedex!")
 	fmt.Println()
@@ -62,7 +77,7 @@ func commandHelp(config *Config) error {
 	return nil
 }
 
-func commandExit(config *Config) error {
+func commandExit(config *Config, args ...string) error {
 	os.Exit(1)
 	return nil
 }
