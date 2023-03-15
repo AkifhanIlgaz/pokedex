@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/AkifhanIlgaz/pokedex/internal/pokeapi"
 	"github.com/fatih/color"
 )
 
 func commandMap(config *Config) error {
-	locationResp, err := pokeapi.GetLocations(config.Next)
+	locationResp, err := config.Client.GetLocations(config.Next)
 	if err != nil {
 		return err
 	}
@@ -31,7 +30,7 @@ func commandMapb(config *Config) error {
 		return nil
 	}
 
-	locationResp, err := pokeapi.GetLocations(config.Previous)
+	locationResp, err := config.Client.GetLocations(config.Previous)
 	if err != nil {
 		return err
 	}

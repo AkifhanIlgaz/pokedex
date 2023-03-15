@@ -15,12 +15,8 @@ type cliCommand struct {
 	callback    func(*Config) error
 }
 
-func startPokedex() {
+func startPokedex(config *Config) {
 	scanner := bufio.NewScanner(os.Stdin)
-	config := Config{
-		Next:     nil,
-		Previous: nil,
-	}
 
 	for {
 		color.Set(color.FgCyan)
@@ -37,7 +33,7 @@ func startPokedex() {
 
 		command, ok := allCommands[commandName]
 		if ok {
-			err := command.callback(&config)
+			err := command.callback(config)
 			if err != nil {
 				fmt.Println(err)
 			}
