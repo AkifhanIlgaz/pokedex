@@ -13,7 +13,7 @@ func commandMap(config *Config) error {
 	config.Previous = poke.Previous
 
 	for _, location := range poke.Results {
-		c := color.Set(color.FgHiWhite, color.Bold)
+		c := color.Set(color.FgHiBlue, color.Bold)
 		c.Println(location.LocationName)
 	}
 	return nil
@@ -21,7 +21,7 @@ func commandMap(config *Config) error {
 
 func commandMapb(config *Config) error {
 	if config.Previous == nil {
-		fmt.Println("No previous page")
+		color.Red("Error: No previous page")
 		return nil
 	}
 
@@ -30,7 +30,7 @@ func commandMapb(config *Config) error {
 	config.Previous = poke.Previous
 
 	for _, location := range poke.Results {
-		c := color.Set(color.FgHiWhite, color.Bold)
+		c := color.Set(color.FgHiBlue, color.Bold)
 		c.Println(location.LocationName)
 	}
 

@@ -43,7 +43,7 @@ func startPokedex() {
 			}
 			continue
 		} else {
-			color.Red("Unknown command!")
+			color.Red("Error: Unknown command!")
 			continue
 		}
 
