@@ -2,7 +2,6 @@ package pokeapi
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -12,7 +11,7 @@ func (c *Client) GetPokemon(pokemonName string) (Pokemon, error) {
 	url := BaseURL + "/pokemon/" + pokemonName
 
 	if val, ok := c.cache.Get(url); ok {
-		fmt.Println("cache is using")
+
 		pokemonResp := Pokemon{}
 		err := json.Unmarshal(val, &pokemonResp)
 		if err != nil {

@@ -2,7 +2,6 @@ package pokeapi
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -12,7 +11,7 @@ func (c *Client) GetLocations(locationName string) (Location, error) {
 	url := BaseURL + "/location-area/" + locationName
 
 	if val, ok := c.cache.Get(url); ok {
-		fmt.Println("cache is using")
+
 		locationResp := Location{}
 		err := json.Unmarshal(val, &locationResp)
 		if err != nil {

@@ -80,6 +80,7 @@ func commandCatch(config *Config, args ...string) error {
 	}
 
 	color.Magenta("%s was caught!", pokemonName)
+	color.Yellow("You may now inspect it with the inspect command")
 	config.CaughtPokemons[pokemonName] = pokemon
 	return nil
 }
@@ -114,6 +115,23 @@ func commandInspect(config *Config, args ...string) error {
 		}
 	} else {
 		fmt.Println("You have not caught that pokemon")
+	}
+
+	return nil
+}
+
+func commandPokedex(config *Config, args ...string) error {
+	if len(config.CaughtPokemons) == 0 {
+		color.Red("You didn't catch any pokemons")
+		return nil
+	}
+
+	color.HiMagenta("Your Pokedex:")
+
+	for pokemonName, _ := range config.CaughtPokemons {
+		dashColor := color.New(color.FgHiWhite, color.Bold)
+		dashColor.Print("  - ")
+		color.Magenta(pokemonName)
 	}
 
 	return nil
