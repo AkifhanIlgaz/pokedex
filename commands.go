@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 
 	"github.com/fatih/color"
@@ -47,9 +48,10 @@ func commandMapb(config *Config, args ...string) error {
 }
 
 func commandExplore(config *Config, args ...string) error {
-	color.Magenta("Exploring %s...", args[0])
+	locationName := args[0]
+	color.Magenta("Exploring %s...", locationName)
 
-	locationResp, err := config.Client.GetLocations(args[0])
+	locationResp, err := config.Client.GetLocations(locationName)
 	if err != nil {
 		return err
 	}
@@ -58,6 +60,27 @@ func commandExplore(config *Config, args ...string) error {
 		c.Println(pokemon.Pokemon.Name)
 	}
 
+	return nil
+}
+
+func commandCatch(config *Config, args ...string) error {
+	pokemonName := args[0]
+	color.Magenta("Throwing a Pokeball at %s...", pokemonName)
+
+	pokemon, err := config.Client.GetPokemon(pokemonName)
+	if err != nil {
+		return err
+	}
+
+	rand := rand.Intn(pokemon.BaseExperience)
+	if rand > 10 {
+		color.Magenta("%s escaped!", pokemonName)
+		return nil
+
+	}
+	
+	color.Magenta("%s was caught!", pokemonName)
+	config.Pokedex.Add(pokemon)
 	return nil
 }
 
