@@ -19,7 +19,7 @@ func commandMap(config *Config, args ...string) error {
 
 	for _, location := range locationResp.Results {
 		c := color.Set(color.FgHiBlue, color.Bold)
-		c.Println(location.LocationName)
+		c.Println(location.Name)
 	}
 
 	return nil
@@ -41,7 +41,7 @@ func commandMapb(config *Config, args ...string) error {
 
 	for _, location := range locationResp.Results {
 		c := color.Set(color.FgHiBlue, color.Bold)
-		c.Println(location.LocationName)
+		c.Println(location.Name)
 	}
 
 	return nil
@@ -73,14 +73,49 @@ func commandCatch(config *Config, args ...string) error {
 	}
 
 	rand := rand.Intn(pokemon.BaseExperience)
-	if rand > 10 {
+	if rand > 30 {
 		color.Magenta("%s escaped!", pokemonName)
 		return nil
 
 	}
-	
+
 	color.Magenta("%s was caught!", pokemonName)
-	config.Pokedex.Add(pokemon)
+	config.CaughtPokemons[pokemonName] = pokemon
+	return nil
+}
+
+func commandInspect(config *Config, args ...string) error {
+	pokemonName := args[0]
+
+	if pokemon, ok := config.CaughtPokemons[pokemonName]; ok {
+		keyColor := color.New(color.FgMagenta, color.Bold)
+		valueColor := color.New(color.FgHiWhite, color.Bold)
+
+		keyColor.Print("Name: ")
+		valueColor.Println(pokemon.Name)
+
+		keyColor.Print("Height: ")
+		valueColor.Println(pokemon.Height)
+
+		keyColor.Print("Weight: ")
+		valueColor.Println(pokemon.Weight)
+
+		color.Yellow("Stats:")
+		for _, statics := range pokemon.Stats {
+			valueColor.Print("  - ")
+			keyColor.Printf("%s: ", statics.Stat.Name)
+			valueColor.Println(statics.BaseStat)
+
+		}
+		color.Yellow("Types:")
+		for _, t := range pokemon.Types {
+			valueColor.Print("  - ")
+			keyColor.Println(t.Type.Name)
+		}
+	} else {
+		fmt.Println("You have not caught that pokemon")
+	}
+
 	return nil
 }
 
