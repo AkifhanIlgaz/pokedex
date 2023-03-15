@@ -128,7 +128,7 @@ func commandPokedex(config *Config, args ...string) error {
 
 	color.HiMagenta("Your Pokedex:")
 
-	for pokemonName, _ := range config.CaughtPokemons {
+	for pokemonName := range config.CaughtPokemons {
 		dashColor := color.New(color.FgHiWhite, color.Bold)
 		dashColor.Print("  - ")
 		color.Magenta(pokemonName)
