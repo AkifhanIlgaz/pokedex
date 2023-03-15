@@ -1,15 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/fatih/color"
+)
 
 func commandHelp(config *Config) error {
 	fmt.Println()
-	fmt.Println("Welcome to Pokedex!")
-	fmt.Println("Usage:")
+	color.HiMagenta("Welcome to Pokedex!")
 	fmt.Println()
+	color.HiBlue("Usage:")
 
 	for _, command := range getCommands() {
-		fmt.Printf("%-5s: %s\n", command.name, command.description)
+		c := color.New(color.FgHiYellow, color.Bold)
+		c.Printf("%-5s: ", command.name)
+		fmt.Printf("%s\n", command.description)
 	}
 
 	fmt.Println()

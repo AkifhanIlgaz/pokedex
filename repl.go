@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/fatih/color"
 )
 
 type cliCommand struct {
@@ -19,8 +21,11 @@ func startPokedex() {
 		Next:     "https://pokeapi.co/api/v2/location-area/",
 		Previous: nil,
 	}
+	
 	for {
+		color.Set(color.FgCyan)
 		fmt.Print("Pokedex > ")
+		color.Unset()
 		scanner.Scan()
 
 		words := cleanInput(scanner.Text())

@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/fatih/color"
 )
 
 func commandMapb(config *Config) error {
@@ -15,7 +17,8 @@ func commandMapb(config *Config) error {
 	config.Previous = poke.Previous
 
 	for _, location := range poke.Results {
-		fmt.Println(location.LocationName)
+		c := color.Set(color.FgHiWhite, color.Bold)
+		c.Println(location.LocationName)
 	}
 
 	return nil
