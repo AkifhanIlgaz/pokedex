@@ -21,7 +21,7 @@ func startPokedex() {
 		Next:     "https://pokeapi.co/api/v2/location-area/",
 		Previous: nil,
 	}
-	
+
 	for {
 		color.Set(color.FgCyan)
 		fmt.Print("Pokedex > ")
@@ -43,7 +43,7 @@ func startPokedex() {
 			}
 			continue
 		} else {
-			fmt.Println("Unknown command")
+			color.Red("Unknown command!")
 			continue
 		}
 
